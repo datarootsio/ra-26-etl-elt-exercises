@@ -27,14 +27,3 @@ dbt_project/logs/
 
 # Throughout the course uncommitted files
 Trainer-Prep-Guide.md
-
-# Solutions stay unreleased by default. Exception: notebook solution 1
-# (Bronze ingestion) is released to git — everything else in both
-# solutions/ folders stays out until you decide to release it.
-# (Deliberately NOT a bare "solutions/" pattern: that ignores the whole
-# directory and a directory-level ignore can't be negated file-by-file —
-# "dir/*" ignores its contents instead, which the "!" line below can override.)
-notebooks/solutions/*
-!notebooks/solutions/01_bronze_ingestion_SOLUTION.py
-!notebooks/solutions/02_etl_style_transform_SOLUTION.py
-dbt_project/solutions/*

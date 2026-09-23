@@ -7,7 +7,7 @@ participant gets the exact same privilege set, so access is identical in
 shape, isolated in scope.
 
 Re-run this whenever participants.yml changes:
-    python3 scripts/generate_resources.py
+    uv run python scripts/generate_resources.py
 """
 from pathlib import Path
 

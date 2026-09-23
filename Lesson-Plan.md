@@ -59,13 +59,13 @@ unattended every night" contrast to both the notebook and the dbt version.
       students can clone/copy from (or just have them clone this repo — it's
       already a Databricks Repo-friendly layout).
 - [ ] Decide whether you pre-run the solutions once yourself the morning of,
-      to catch any schema drift in the raw CSVs before 7 people hit it at once.
+      to catch any schema drift in the raw CSVs before 9 people hit it at once.
 
 ## Common pitfalls to warn about up front
 
 - `inferSchema=True` on `orders` will read the timestamp columns as strings
   unless the raw file's date format is clean — worth checking once yourself
-  and telling students what to expect, rather than having 7 people
+  and telling students what to expect, rather than having 9 people
   independently discover the same cast issue.
 - Everyone shares ONE schema now (`ra26_elt_ex_<first_name>`), not separate
   bronze/silver/gold schemas per handle. If a student's `.env` `DBT_SCHEMA`

@@ -5,6 +5,12 @@ tables (built in `01_bronze_ingestion.py`) and writes back into **your own**
 schema — nothing here touches raw files directly, and nothing here touches
 anyone else's schema.
 
+**Run `01_bronze_ingestion.py` for your schema before anything here.**
+Every model in `models/staging/` reads a `bronze_*` table — if those don't
+exist yet, `dbt run`/`dbt build` fails every staging model with
+`TABLE_OR_VIEW_NOT_FOUND`. That's not a dbt problem, it just means Bronze
+hasn't been landed yet.
+
 ## Setup (5 minutes)
 
 `profiles.yml` in this folder is the real, committed profile — every

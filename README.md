@@ -40,7 +40,7 @@ src/olist_pipeline/               "HOW IT'S DONE NORMALLY" — production-style 
 src/tests/                        pytest — runs locally, no Databricks connection needed
 Exercise-Brief.md               participant-facing brief
 Lesson-Plan.md                    teacher-facing lesson plan
-pyproject.toml                    dev deps (pytest, ruff, databricks-connect) + pytest config
+pyproject.toml                    dev deps (pytest, ruff, databricks-connect, dbt-databricks, pyyaml) + pytest config
 ```
 
 ## Deploy
@@ -118,8 +118,11 @@ see and trigger it at all.
 ## Adding or removing a participant
 
 1. Edit `participants.yml`
-2. `python3 scripts/generate_resources.py` (regenerates
-   `resources/participant_schemas.yml`)
+2. `uv run python scripts/generate_resources.py` (regenerates
+   `resources/participant_schemas.yml` — plain `python3` will hit
+   `ModuleNotFoundError: No module named 'yaml'` unless it happens to be
+   installed system-wide; `uv run` uses this project's own env, which has
+   `pyyaml`)
 3. `databricks bundle deploy -t dev`
 4. `./scripts/upload_datasets.sh` (idempotent — fine to re-run for everyone)
 5. Add/remove them from the `ra-26-etl-elt-exercise` group in the workspace

@@ -54,6 +54,13 @@ else's at the wrap-up.
   there, committed — it just reads `.env`; `dbt-databricks` is already a
   dependency, nothing to `pip install`).
 
+`dbt debug` can pass before you've built anything in Databricks — it only
+checks the connection. But don't run `dbt run`/`dbt build` until you've
+actually landed your Bronze tables (Phase A below): every staging model
+reads a `bronze_*` table, so running dbt first fails all of them with
+"table or view not found." That's expected, not a dbt bug — just do
+Phase A first.
+
 ## How the 4 hours break down
 
 | Time | Phase | What you're doing |

@@ -1,0 +1,49 @@
+# Add tests here as you build each mart. Start with the ones already written
+# for gold_delivery_performance_by_state, then add your own for whichever of
+# Q2/Q3 you built in dbt. This is the "quality built into the ELT layer" part
+# of the exercise — notice PySpark doesn't give you this for free.
+version: 2
+
+models:
+  - name: gold_delivery_performance_by_state
+    description: "Q1 (ELT version) — delivery delay and lateness rate by customer state."
+    columns:
+      - name: customer_state
+        data_tests:
+          - unique
+          - not_null
+      - name: order_count
+        data_tests:
+          - not_null
+      - name: avg_delay_days
+        data_tests:
+          - not_null
+      - name: pct_late
+        data_tests:
+          - not_null
+
+  - name: gold_monthly_revenue_by_category
+    description: "Q2 (ELT version, if you chose dbt) — monthly revenue by product category."
+    columns:
+      - name: order_month
+        data_tests:
+          - not_null
+      - name: revenue
+        data_tests:
+          - not_null
+        # TODO (optional stretch): add a test that revenue is never negative.
+        # Look up dbt_utils.expression_is_true, or write a singular test.
+
+  - name: gold_review_score_vs_delivery_delay
+    description: "Q3 (ELT version, if you chose dbt) — review score by delivery-delay bucket."
+    columns:
+      - name: delay_bucket
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values:
+                  - early_or_on_time
+                  - 1_3_days_late
+                  - 4_7_days_late
+                  - 8_plus_days_late

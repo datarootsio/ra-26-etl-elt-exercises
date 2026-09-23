@@ -16,6 +16,7 @@ dev = [
     "pytest>=8.0",
     "pyyaml>=6.0",
     "ruff>=0.15",
+    "dbt-databricks>=1.8",
 ]
 
 [tool.pytest.ini_options]

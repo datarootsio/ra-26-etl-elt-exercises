@@ -1,9 +1,10 @@
 # Real profiles.yml, committed to the repo — safe to commit because every
 # value below is read from an environment variable, never hardcoded. Point
 # dbt at this file with:
-#     DBT_PROFILES_DIR=. dbt debug
+#     DBT_PROFILES_DIR=. uv run dbt debug
 # (run from this dbt_project/ directory), after setting the env vars below
-# — see ../.env.example for exactly which ones and where to find them.
+# — see .env.example (same folder) for exactly which ones and where to
+# find them.
 #
 # IMPORTANT — student isolation:
 #   DBT_SCHEMA is YOUR schema, already provisioned for you by the bundle:

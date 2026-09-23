@@ -25,7 +25,7 @@ fi
 # Read the catalog default straight out of databricks.yml, so this never
 # drifts from what was actually deployed. Override with DATABRICKS_CATALOG=
 # if you deployed with a non-default `catalog` bundle variable.
-CATALOG="${DATABRICKS_CATALOG:-$(python3 -c "
+CATALOG="${DATABRICKS_CATALOG:-$(uv run python -c "
 import yaml
 print(yaml.safe_load(open('$REPO_ROOT/databricks.yml'))['variables']['catalog']['default'])
 ")}"
@@ -34,7 +34,7 @@ echo "Dataset:     $DATASET_DIR"
 echo "Catalog:     $CATALOG"
 echo
 
-python3 - "$REPO_ROOT/participants.yml" <<'PY' > /tmp/ra26_first_names.txt
+uv run python - "$REPO_ROOT/participants.yml" <<'PY' > /tmp/ra26_first_names.txt
 import sys, yaml
 data = yaml.safe_load(open(sys.argv[1]))
 for p in data["participants"]:

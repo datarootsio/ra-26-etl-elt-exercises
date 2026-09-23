@@ -26,6 +26,11 @@ bundle:
 include:
   - resources/*.yml
 
+sync:
+  include:
+    - notebooks/solutions/**
+    - dbt_project/solutions/**
+
 variables:
   catalog:
     description: "Unity Catalog catalog everything is created in. Must already exist."

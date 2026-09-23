@@ -61,6 +61,16 @@ inside it, with `ALL_PRIVILEGES` granted to that person's email — and
 nobody else's. It also deploys `olist_reference_pipeline`, a job that runs
 `src/olist_pipeline` (defaults to Han's schema).
 
+The deploy also syncs the whole bundle into **your own** personal
+Workspace folder (this target's `root_path`, always deployed as Han) —
+including `notebooks/solutions/` and `dbt_project/solutions/`, which are
+force-included via `sync.include` in `databricks.yml` even though
+they're gitignored. That's deliberate: participants get this repo via
+git (where `solutions/` never appears at all), not via Han's personal
+Workspace folder, so having the solutions land there too is harmless —
+it just means Han has them on hand in Databricks without needing to
+open them locally.
+
 ## One-time manual setup (not in the bundle, on purpose)
 
 Two things live outside the bundle deliberately, because they touch

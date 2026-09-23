@@ -1,0 +1,22 @@
+# Optional, same idea as models/marts/schema.yml — add a test or two once
+# int_delivered_orders_with_delay is built, if you want the exercise's
+# "quality built into the layer" point to show up here too, not just in
+# the marts that read from it.
+version: 2
+
+models:
+  - name: int_delivered_orders_with_delay
+    description: >
+      Intermediate model — delivered orders (order_status = 'delivered',
+      non-null order_delivered_customer_ts) with delay_days computed once.
+      Read by gold_delivery_performance_by_state (Q1, always) and
+      gold_review_score_vs_delivery_delay (Q3, if you picked dbt) — the
+      one place this logic is written, not duplicated per mart.
+    columns:
+      - name: order_id
+        data_tests:
+          - unique
+          - not_null
+      - name: delay_days
+        data_tests:
+          - not_null

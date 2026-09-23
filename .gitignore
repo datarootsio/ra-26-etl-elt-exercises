@@ -36,4 +36,5 @@ Trainer-Prep-Guide.md
 # "dir/*" ignores its contents instead, which the "!" line below can override.)
 notebooks/solutions/*
 !notebooks/solutions/01_bronze_ingestion_SOLUTION.py
+!notebooks/solutions/02_etl_style_transform_SOLUTION.py.sql
 dbt_project/solutions/*

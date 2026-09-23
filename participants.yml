@@ -1,0 +1,33 @@
+# Source of truth for who gets a personal UC schema + volume in this bundle.
+# Add/remove people here, then re-run:
+#   python3 scripts/generate_resources.py
+# to regenerate resources/participant_schemas.yml. Group membership itself
+# (workspace identity) is managed in Databricks, not here — see README.md.
+#
+# first_name must be unique and lowercase: it becomes part of the UC schema
+# name (ra26_elt_ex_<first_name>) and the bundle resource keys.
+
+group_name: "ra-26-etl-elt-exercise"
+
+participants:
+  - first_name: alexandros
+    full_name: Alexandros Koliousios
+    email: alexandros.koliousios@dataroots.io
+  - first_name: nicolas
+    full_name: Nicolas Raute
+    email: nicolas.rauta@dataroots.io
+  - first_name: nils
+    full_name: Nils Brouwer
+    email: nils.brouwer@dataroots.io
+  - first_name: truong
+    full_name: Truong Nguyen
+    email: truong.nguyen@dataroots.io
+  - first_name: vincent
+    full_name: Vincent Blareau
+    email: vincent.blareau@dataroots.io
+  - first_name: wadieh
+    full_name: Wadieh Karbal
+    email: wadieh.karbal@dataroots.io
+  - first_name: han
+    full_name: Han Sahin
+    email: han@dataroots.io

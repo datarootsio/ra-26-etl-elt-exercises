@@ -1,0 +1,30 @@
+# Databricks Asset Bundle
+.databricks/
+*.pyc
+__pycache__/
+
+# Python
+.venv/
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+uv.lock
+
+# dbt
+dbt_project/target/
+dbt_project/dbt_packages/
+dbt_project/logs/
+
+# secrets — profiles.yml itself is safe to commit (env_var() only, no
+# literal values); the .env file that supplies those vars is not.
+.env
+
+# OS
+.DS_Store
+
+# VS Code
+.vscode/
+
+# Throughout the course uncommitted files
+Trainer-Prep-Guide.md
+solutions/

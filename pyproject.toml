@@ -1,0 +1,41 @@
+[project]
+name = "ra-26-etl-elt-exercise"
+version = "0.1.0"
+description = "RootsAcademy 2026 ETL/ELT exercise — dbt + PySpark, deployed via Databricks Asset Bundle."
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+dependencies = []
+
+[dependency-groups]
+dev = [
+    # Databricks Connect (serverless) — provides `databricks.connect.DatabricksSession`
+    # used by olist_pipeline.session.get_spark for local/IDE runs against real
+    # serverless compute. Pin to the release that matches your workspace's runtime.
+    "databricks-connect>=16.1",
+    "pyspark>=3.5,<3.6",
+    "pytest>=8.0",
+    "pyyaml>=6.0",
+    "ruff>=0.15",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["src/tests"]
+pythonpath = ["src"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+# `spark`, `dbutils`, and `display` are injected by the Databricks runtime
+# into notebook source files (notebooks/*.py) — declaring them as builtins
+# stops ruff flagging F821 there without scattering `# noqa` comments.
+builtins = ["spark", "dbutils", "display"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.ruff.lint.per-file-ignores]
+# Notebook cells set widgets before imports by convention (the widget values
+# are needed to decide what to import/configure next) — that's E402 by
+# normal Python rules but is how every Databricks notebook in this repo is
+# written, on purpose.
+"notebooks/*.py" = ["E402"]

@@ -1,0 +1,42 @@
+# =============================================================================
+# RootsAcademy 2026 — ETL/ELT exercise (ra-26-etl-elt-exercise)
+# =============================================================================
+# A self-contained Databricks Asset Bundle (DAB). It provisions:
+#   • one UC schema + one UC managed volume PER PARTICIPANT (see
+#     participants.yml / resources/participant_schemas.yml), named
+#     ra26_elt_ex_<first_name>, each grants-locked to that one person
+#   • a reference job (olist_reference_pipeline) that runs the production-
+#     style PySpark package in src/olist_pipeline against ONE schema at a
+#     time — defaults to Han's, any participant can re-run it with their own
+#     `catalog`/`schema` job parameters to see the "how it's done for real"
+#     version end to end
+#
+# See README.md for the full walkthrough (deploy, upload data, run the
+# exercise). Group membership / the one-off USE_CATALOG grant are NOT
+# managed here — see README.md "One-time manual setup".
+#
+# Deploy (from this folder, on a machine with the Databricks CLI configured):
+#   databricks bundle validate -t dev
+#   databricks bundle deploy   -t dev
+#   ./scripts/upload_datasets.sh   # one-time: CSVs into every participant volume
+# =============================================================================
+bundle:
+  name: ra_26_etl_elt_exercise
+
+include:
+  - resources/*.yml
+
+variables:
+  catalog:
+    description: "Unity Catalog catalog everything is created in. Must already exist."
+    default: dtr_sandbox
+
+targets:
+  dev:
+    mode: production
+    default: true
+    workspace:
+      host: https://adb-3020218199835395.15.azuredatabricks.net
+      root_path: /Workspace/Users/${workspace.current_user.userName}/ra-26-etl-elt-exercise
+    run_as:
+      user_name: ${workspace.current_user.userName}

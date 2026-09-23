@@ -1,0 +1,62 @@
+# -----------------------------------------------------------------------------
+# Reference job — runs the PRODUCTION-style pipeline (src/olist_pipeline), not
+# the notebook exercise. This is "how it should be done normally": one small
+# job cluster, a single spark_python_task that calls a tested Python package
+# (see src/olist_pipeline/tests/), not a notebook full of TODOs.
+#
+# Defaults to Han's own schema so `databricks bundle deploy` + a manual run
+# works out of the box. Any participant can point it at their own sandbox via
+# "Run now with different parameters" (catalog / schema), no redeploy needed
+# — this WORKS for any schema regardless of who clicks "run", because the job
+# always executes as its `run_as` identity (Han, from databricks.yml's
+# target-level run_as), and Han owns every schema this bundle created
+# (schema ownership, not the per-participant grants, is what makes that
+# work — owners always have full access to what they created in Unity
+# Catalog). The `permissions:` block below is what lets participants even
+# SEE and trigger the job in the first place; without it this job is only
+# visible to whoever deployed the bundle.
+# -----------------------------------------------------------------------------
+resources:
+  jobs:
+    olist_reference_pipeline:
+      name: "olist_reference_pipeline"
+      tags:
+        purpose: training
+        managed_by: dabs
+
+      permissions:
+        # must match participants.yml's group_name
+        - group_name: ra-26-etl-elt-exercise
+          level: CAN_MANAGE_RUN
+
+      parameters:
+        - name: catalog
+          default: ${var.catalog}
+        - name: schema
+          default: ra26_elt_ex_han
+        - name: volume
+          default: raw_data
+
+      tasks:
+        - task_key: run_pipeline
+          job_cluster_key: pipeline_small
+          spark_python_task:
+            python_file: ${workspace.file_path}/src/olist_pipeline/pipeline.py
+            parameters:
+              - "--catalog={{job.parameters.catalog}}"
+              - "--schema={{job.parameters.schema}}"
+              - "--volume={{job.parameters.volume}}"
+
+      job_clusters:
+        - job_cluster_key: pipeline_small
+          new_cluster:
+            spark_version: 15.4.x-scala2.12
+            node_type_id: Standard_F4s
+            num_workers: 0
+            data_security_mode: SINGLE_USER
+            single_user_name: ${workspace.current_user.userName}
+            spark_conf:
+              spark.databricks.cluster.profile: singleNode
+              spark.master: "local[*]"
+            custom_tags:
+              ResourceClass: SingleNode

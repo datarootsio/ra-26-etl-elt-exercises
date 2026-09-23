@@ -1,0 +1,26 @@
+name: 'olist_etl_elt_exercise'
+version: '1.0.0'
+config-version: 2
+
+profile: 'olist_etl_elt_exercise'
+
+model-paths: ["models"]
+macro-paths: ["macros"]
+clean-targets:
+  - "target"
+  - "dbt_packages"
+
+# NOTE: everyone gets exactly ONE Unity Catalog schema (ra26_elt_ex_<name>),
+# provisioned by the bundle (see ../resources/participant_schemas.yml) with
+# grants scoped to that one schema. So there is no "+schema: silver" /
+# "+schema: gold" sub-schema split here — that would try to create schemas
+# you don't have grants on. See macros/generate_schema_name.sql, which pins
+# every model to your single target.schema regardless of this config.
+models:
+  olist_etl_elt_exercise:
+    staging:
+      +materialized: view
+    intermediate:
+      +materialized: view
+    marts:
+      +materialized: table

@@ -1,0 +1,129 @@
+# =============================================================================
+# GENERATED FILE — do not hand-edit. Run scripts/generate_resources.py after
+# changing participants.yml.
+#
+# One schema + one volume per participant under ${var.catalog}, named
+# ra26_elt_ex_<first_name>. Each schema's `grants:` block gives ONLY that
+# participant privileges on ONLY that schema (Unity Catalog privilege
+# inheritance carries these down to the volume and to every table/view the
+# participant creates in it). Nobody else in the group can see into it.
+#
+# Everyone also needs USE_CATALOG on ${var.catalog} itself to even see their
+# schema. That catalog is shared with other bundles/trainings, so it is NOT
+# created here — grant it once, out of band, documented in README.md.
+# =============================================================================
+
+resources:
+  schemas:
+    schema_alexandros:
+      catalog_name: ${var.catalog}
+      name: ra26_elt_ex_alexandros
+      comment: "RootsAcademy 2026 ETL/ELT exercise — Alexandros Koliousios's personal sandbox."
+      grants:
+        - principal: alexandros.koliousios@dataroots.io
+          privileges:
+            - ALL_PRIVILEGES
+
+    schema_nicolas:
+      catalog_name: ${var.catalog}
+      name: ra26_elt_ex_nicolas
+      comment: "RootsAcademy 2026 ETL/ELT exercise — Nicolas Raute's personal sandbox."
+      grants:
+        - principal: nicolas.rauta@dataroots.io
+          privileges:
+            - ALL_PRIVILEGES
+
+    schema_nils:
+      catalog_name: ${var.catalog}
+      name: ra26_elt_ex_nils
+      comment: "RootsAcademy 2026 ETL/ELT exercise — Nils Brouwer's personal sandbox."
+      grants:
+        - principal: nils.brouwer@dataroots.io
+          privileges:
+            - ALL_PRIVILEGES
+
+    schema_truong:
+      catalog_name: ${var.catalog}
+      name: ra26_elt_ex_truong
+      comment: "RootsAcademy 2026 ETL/ELT exercise — Truong Nguyen's personal sandbox."
+      grants:
+        - principal: truong.nguyen@dataroots.io
+          privileges:
+            - ALL_PRIVILEGES
+
+    schema_vincent:
+      catalog_name: ${var.catalog}
+      name: ra26_elt_ex_vincent
+      comment: "RootsAcademy 2026 ETL/ELT exercise — Vincent Blareau's personal sandbox."
+      grants:
+        - principal: vincent.blareau@dataroots.io
+          privileges:
+            - ALL_PRIVILEGES
+
+    schema_wadieh:
+      catalog_name: ${var.catalog}
+      name: ra26_elt_ex_wadieh
+      comment: "RootsAcademy 2026 ETL/ELT exercise — Wadieh Karbal's personal sandbox."
+      grants:
+        - principal: wadieh.karbal@dataroots.io
+          privileges:
+            - ALL_PRIVILEGES
+
+    schema_han:
+      catalog_name: ${var.catalog}
+      name: ra26_elt_ex_han
+      comment: "RootsAcademy 2026 ETL/ELT exercise — Han Sahin's personal sandbox."
+      grants:
+        - principal: han@dataroots.io
+          privileges:
+            - ALL_PRIVILEGES
+
+  volumes:
+    volume_alexandros:
+      catalog_name: ${var.catalog}
+      schema_name: ${resources.schemas.schema_alexandros.name}
+      name: raw_data
+      volume_type: MANAGED
+      comment: "Raw Olist CSVs for Alexandros Koliousios — uploaded once via scripts/upload_datasets.sh."
+
+    volume_nicolas:
+      catalog_name: ${var.catalog}
+      schema_name: ${resources.schemas.schema_nicolas.name}
+      name: raw_data
+      volume_type: MANAGED
+      comment: "Raw Olist CSVs for Nicolas Raute — uploaded once via scripts/upload_datasets.sh."
+
+    volume_nils:
+      catalog_name: ${var.catalog}
+      schema_name: ${resources.schemas.schema_nils.name}
+      name: raw_data
+      volume_type: MANAGED
+      comment: "Raw Olist CSVs for Nils Brouwer — uploaded once via scripts/upload_datasets.sh."
+
+    volume_truong:
+      catalog_name: ${var.catalog}
+      schema_name: ${resources.schemas.schema_truong.name}
+      name: raw_data
+      volume_type: MANAGED
+      comment: "Raw Olist CSVs for Truong Nguyen — uploaded once via scripts/upload_datasets.sh."
+
+    volume_vincent:
+      catalog_name: ${var.catalog}
+      schema_name: ${resources.schemas.schema_vincent.name}
+      name: raw_data
+      volume_type: MANAGED
+      comment: "Raw Olist CSVs for Vincent Blareau — uploaded once via scripts/upload_datasets.sh."
+
+    volume_wadieh:
+      catalog_name: ${var.catalog}
+      schema_name: ${resources.schemas.schema_wadieh.name}
+      name: raw_data
+      volume_type: MANAGED
+      comment: "Raw Olist CSVs for Wadieh Karbal — uploaded once via scripts/upload_datasets.sh."
+
+    volume_han:
+      catalog_name: ${var.catalog}
+      schema_name: ${resources.schemas.schema_han.name}
+      name: raw_data
+      volume_type: MANAGED
+      comment: "Raw Olist CSVs for Han Sahin — uploaded once via scripts/upload_datasets.sh."

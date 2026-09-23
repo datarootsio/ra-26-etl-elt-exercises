@@ -1,0 +1,29 @@
+# Points at YOUR Bronze tables (built by the 01_bronze_ingestion notebook,
+# or by src/olist_pipeline/pipeline.py if you ran the reference job).
+# Schema resolves to your own single schema ("{{ target.schema }}",
+# e.g. ra26_elt_ex_nils) — everyone's Bronze, staging, and gold all live in
+# that one schema, distinguished by the "bronze_" prefix. You shouldn't need
+# to touch this file.
+version: 2
+
+sources:
+  - name: bronze
+    catalog: "{{ target.catalog }}"
+    schema: "{{ target.schema }}"
+    tables:
+      - name: customers
+        identifier: bronze_customers
+      - name: orders
+        identifier: bronze_orders
+      - name: order_items
+        identifier: bronze_order_items
+      - name: order_payments
+        identifier: bronze_order_payments
+      - name: order_reviews
+        identifier: bronze_order_reviews
+      - name: products
+        identifier: bronze_products
+      - name: sellers
+        identifier: bronze_sellers
+      - name: category_translation
+        identifier: bronze_category_translation

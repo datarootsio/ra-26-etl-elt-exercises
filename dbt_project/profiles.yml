@@ -1,0 +1,26 @@
+# Real profiles.yml, committed to the repo — safe to commit because every
+# value below is read from an environment variable, never hardcoded. Point
+# dbt at this file with:
+#     DBT_PROFILES_DIR=. dbt debug
+# (run from this dbt_project/ directory), after setting the env vars below
+# — see ../.env.example for exactly which ones and where to find them.
+#
+# IMPORTANT — student isolation:
+#   DBT_SCHEMA is YOUR schema, already provisioned for you by the bundle:
+#   ra26_elt_ex_<your first name>, e.g. ra26_elt_ex_nils. You were only
+#   granted privileges on that ONE schema — everything (Bronze tables from
+#   the notebook, staging views, gold mart tables) lives in it. There is no
+#   separate bronze/silver/gold schema split anymore (see
+#   macros/generate_schema_name.sql if you're curious why).
+
+olist_etl_elt_exercise:
+  target: dev
+  outputs:
+    dev:
+      type: databricks
+      catalog: dtr_sandbox                          # shared catalog for everyone — do not change
+      schema: "{{ env_var('DBT_SCHEMA') }}"          # <-- from .env, e.g. ra26_elt_ex_nils
+      host: "{{ env_var('DATABRICKS_HOST') }}"
+      http_path: "{{ env_var('DATABRICKS_HTTP_PATH') }}"
+      token: "{{ env_var('DATABRICKS_TOKEN') }}"
+      threads: 4

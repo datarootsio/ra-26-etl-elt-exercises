@@ -78,6 +78,24 @@ resources:
           privileges:
             - ALL_PRIVILEGES
 
+    schema_ibrahim:
+      catalog_name: ${var.catalog}
+      name: ra26_elt_ex_ibrahim
+      comment: "RootsAcademy 2026 ETL/ELT exercise — Ibrahim Lamrabet's personal sandbox."
+      grants:
+        - principal: ibrahim.lamrabet@dataroots.io
+          privileges:
+            - ALL_PRIVILEGES
+
+    schema_manoah:
+      catalog_name: ${var.catalog}
+      name: ra26_elt_ex_manoah
+      comment: "RootsAcademy 2026 ETL/ELT exercise — Manoah Abenzoar's personal sandbox."
+      grants:
+        - principal: manoah.abenzoar@dataroots.io
+          privileges:
+            - ALL_PRIVILEGES
+
   volumes:
     volume_alexandros:
       catalog_name: ${var.catalog}
@@ -127,3 +145,17 @@ resources:
       name: raw_data
       volume_type: MANAGED
       comment: "Raw Olist CSVs for Han Sahin — uploaded once via scripts/upload_datasets.sh."
+
+    volume_ibrahim:
+      catalog_name: ${var.catalog}
+      schema_name: ${resources.schemas.schema_ibrahim.name}
+      name: raw_data
+      volume_type: MANAGED
+      comment: "Raw Olist CSVs for Ibrahim Lamrabet — uploaded once via scripts/upload_datasets.sh."
+
+    volume_manoah:
+      catalog_name: ${var.catalog}
+      schema_name: ${resources.schemas.schema_manoah.name}
+      name: raw_data
+      volume_type: MANAGED
+      comment: "Raw Olist CSVs for Manoah Abenzoar — uploaded once via scripts/upload_datasets.sh."
